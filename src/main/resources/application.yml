@@ -9,5 +9,11 @@ camunda:
       id: admin
       password: password
       firstName: admin      
-init.isAddBasicUser: true
+    filter:
+      create: All tasks
+
+config-user:
+  add-basic-user: true
+  run-sample-flow: true
+
 

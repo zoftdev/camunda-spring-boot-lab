@@ -8,5 +8,40 @@
     "name": "init.isAddBasicUser",
     "type": "java.lang.String",
     "description": "A description for 'init.isAddBasicUser'"
+  },
+  {
+    "name": "init.addBasicUser",
+    "type": "java.lang.String",
+    "description": "A description for 'init.addBasicUser'"
+  },
+  {
+    "name": "init.runSampleFlow",
+    "type": "java.lang.String",
+    "description": "A description for 'init.runSampleFlow'"
+  },
+  {
+    "name": "init.add-basic-user",
+    "type": "java.lang.String",
+    "description": "A description for 'init.add-basic-user'"
+  },
+  {
+    "name": "init.run-sample-flow",
+    "type": "java.lang.String",
+    "description": "A description for 'init.run-sample-flow'"
+  },
+  {
+    "name": "init.run-sample-flow",
+    "type": "java.lang.String",
+    "description": "A description for 'init.run-sample-flow'"
+  },
+  {
+    "name": "config-user",
+    "type": "java.lang.String",
+    "description": "A description for 'config-user'"
+  },
+  {
+    "name": "config-user",
+    "type": "java.lang.String",
+    "description": "A description for 'config-user'"
   }
 ]}

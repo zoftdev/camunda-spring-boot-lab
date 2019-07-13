@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1b6jd24" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.1.2">
+  <bpmn:process id="approveProcess" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1" camunda:initiator="theUser">
+      <bpmn:extensionElements>
+        <camunda:formData businessKey="username">
+          <camunda:formField id="username" label="Username" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>SequenceFlow_0iqjjet</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0iqjjet" sourceRef="StartEvent_1" targetRef="Task_0nlqhwh" />
+    <bpmn:sequenceFlow id="SequenceFlow_041avpu" sourceRef="Task_0nlqhwh" targetRef="Task_0tzsllf" />
+    <bpmn:intermediateThrowEvent id="IntermediateThrowEvent_094sumi">
+      <bpmn:incoming>SequenceFlow_16s4v1e</bpmn:incoming>
+    </bpmn:intermediateThrowEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_16s4v1e" sourceRef="Task_0tzsllf" targetRef="IntermediateThrowEvent_094sumi" />
+    <bpmn:scriptTask id="Task_0tzsllf" name="run-job" scriptFormat="javascript">
+      <bpmn:incoming>SequenceFlow_041avpu</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_16s4v1e</bpmn:outgoing>
+      <bpmn:script>print("ok: "+theUser );</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:userTask id="Task_0nlqhwh" name="approve-by-operation" camunda:candidateGroups="operation">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="password" label="Password" type="string" />
+          <camunda:formField id="isApprove" label="Approve?" type="boolean" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0iqjjet</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_041avpu</bpmn:outgoing>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="approveProcess">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="103" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0iqjjet_di" bpmnElement="SequenceFlow_0iqjjet">
+        <di:waypoint x="215" y="121" />
+        <di:waypoint x="265" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_041avpu_di" bpmnElement="SequenceFlow_041avpu">
+        <di:waypoint x="365" y="121" />
+        <di:waypoint x="415" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="IntermediateThrowEvent_094sumi_di" bpmnElement="IntermediateThrowEvent_094sumi">
+        <dc:Bounds x="565" y="103" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_16s4v1e_di" bpmnElement="SequenceFlow_16s4v1e">
+        <di:waypoint x="515" y="121" />
+        <di:waypoint x="565" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ScriptTask_0z27sgh_di" bpmnElement="Task_0tzsllf">
+        <dc:Bounds x="415" y="81" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_19coeri_di" bpmnElement="Task_0nlqhwh">
+        <dc:Bounds x="265" y="81" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
