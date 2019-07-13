@@ -67,8 +67,8 @@ public class ConfigUser {
             ProcessEngine.getIdentityService().saveUser(user1);
             ProcessEngine.getIdentityService().createMembership("user1", "officer");
 
-            grantCreateProcessInstance(ProcessEngine.getAuthorizationService(), "officer", "hello");
-            grantCreateProcessInstance(ProcessEngine.getAuthorizationService(), "officer", "approveProcess");
+            grantCreateProcessInstance(ProcessEngine.getAuthorizationService(), "officer", "*");
+            // grantCreateProcessInstance(ProcessEngine.getAuthorizationService(), "officer", "approveProcess");
 
             // grant create to PROCESS_INSTANCE .*
             Authorization grantLaunchProcess = ProcessEngine.getAuthorizationService()
