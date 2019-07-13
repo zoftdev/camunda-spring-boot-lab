@@ -2,11 +2,12 @@
 server:
   port: 8081
 camunda:
-  bpm:
+  bpm:    
     authorization:
       enabled: true
     admin-user:
       id: admin
       password: password
       firstName: admin      
-init.isAddBasicUser: true;
+init.isAddBasicUser: true
+
