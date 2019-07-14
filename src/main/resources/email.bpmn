@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_11eu6tg" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.1.2">
+  <bpmn:process id="emailProcess" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1" camunda:initiator="requestor">
+      <bpmn:outgoing>SequenceFlow_1fuw27e</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1k6nn4f" sourceRef="Task_1kymffl" targetRef="Task_1tbmhvp" />
+    <bpmn:intermediateThrowEvent id="IntermediateThrowEvent_0rxhewf">
+      <bpmn:incoming>SequenceFlow_1s504l0</bpmn:incoming>
+    </bpmn:intermediateThrowEvent>
+    <bpmn:serviceTask id="Task_1tbmhvp" name="email operation">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="to">${email_to}</camunda:inputParameter>
+            <camunda:inputParameter name="subject">${email_subject}</camunda:inputParameter>
+            <camunda:inputParameter name="text">Welcome , your ${username} has been create!</camunda:inputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>mail-send</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1k6nn4f</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1a69ga9</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="SequenceFlow_1fuw27e" sourceRef="StartEvent_1" targetRef="Task_1kymffl" />
+    <bpmn:scriptTask id="Task_1kymffl" name="set email param" scriptFormat="javascript">
+      <bpmn:incoming>SequenceFlow_1fuw27e</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1k6nn4f</bpmn:outgoing>
+      <bpmn:script>execution.setVariable('email_to','hlex.java@gmail.com')
+
+execution.setVariable('email_subject','hello')
+execution.setVariable('username','newUser1')</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="SequenceFlow_1a69ga9" sourceRef="Task_1tbmhvp" targetRef="Task_175haa5" />
+    <bpmn:serviceTask id="Task_175haa5" name="prepare to send requestor an email" camunda:class="com.hlex.camundacleantest.email.FindRequestorDelegate">
+      <bpmn:incoming>SequenceFlow_1a69ga9</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_12qrr03</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ServiceTask_mailReq" name="prepare to send requestor an email">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="to">${email_to}</camunda:inputParameter>
+            <camunda:inputParameter name="subject">${email_subject}</camunda:inputParameter>
+            <camunda:inputParameter name="text">${email_text}</camunda:inputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>mail-send</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_12qrr03</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1s504l0</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="SequenceFlow_12qrr03" sourceRef="Task_175haa5" targetRef="ServiceTask_mailReq" />
+    <bpmn:sequenceFlow id="SequenceFlow_1s504l0" sourceRef="ServiceTask_mailReq" targetRef="IntermediateThrowEvent_0rxhewf" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="emailProcess">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="188" y="81" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1k6nn4f_di" bpmnElement="SequenceFlow_1k6nn4f">
+        <di:waypoint x="206" y="231" />
+        <di:waypoint x="206" y="257" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="IntermediateThrowEvent_0rxhewf_di" bpmnElement="IntermediateThrowEvent_0rxhewf">
+        <dc:Bounds x="352" y="81" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_0vrh0wn_di" bpmnElement="Task_1tbmhvp">
+        <dc:Bounds x="156" y="257" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1fuw27e_di" bpmnElement="SequenceFlow_1fuw27e">
+        <di:waypoint x="206" y="117" />
+        <di:waypoint x="206" y="151" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ScriptTask_0sswpxq_di" bpmnElement="Task_1kymffl">
+        <dc:Bounds x="156" y="151" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1a69ga9_di" bpmnElement="SequenceFlow_1a69ga9">
+        <di:waypoint x="256" y="297" />
+        <di:waypoint x="320" y="297" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_00d63ie_di" bpmnElement="Task_175haa5">
+        <dc:Bounds x="320" y="257" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_07kv09u_di" bpmnElement="ServiceTask_mailReq">
+        <dc:Bounds x="320" y="140" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_12qrr03_di" bpmnElement="SequenceFlow_12qrr03">
+        <di:waypoint x="370" y="257" />
+        <di:waypoint x="370" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1s504l0_di" bpmnElement="SequenceFlow_1s504l0">
+        <di:waypoint x="370" y="140" />
+        <di:waypoint x="370" y="117" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

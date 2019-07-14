@@ -6,4 +6,3 @@ camunda:
     generate-unique-process-application-name: true
     #============================================
     history-level: full
-  

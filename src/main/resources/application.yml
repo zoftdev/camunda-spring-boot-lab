@@ -11,9 +11,9 @@ camunda:
       firstName: admin      
     filter:
       create: All tasks
+  
 
 config-user:
   add-basic-user: true
   run-sample-flow: true
-
 

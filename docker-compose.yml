@@ -1,0 +1,16 @@
+version: "2"
+
+services:
+  camunda:
+    # environment:
+    #   SPRING_PROFILES_ACTIVE: 
+    build: .
+    image: zoftdev/camunda-clean-test
+    ports: 
+      - "8081:8081"
+  fakesmtp:
+    image: digiplant/fake-smtp
+    ports:
+      - "25:25"
+    volumes:
+      - ./target/email:/var/mail
